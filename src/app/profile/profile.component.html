@@ -1,0 +1,119 @@
+<div  class=" bg-dark profile">
+    <div *ngIf="!isready" class="position-absolute  w-100 h-100">
+        <div class="spinner bg-info"></div>
+    </div>
+    <div *ngIf="isready" class="container ">
+        
+        
+        <div  class="row ">
+            <!---------------- Button trigger modal ---------------->
+            <div class="col-md-12 pt-5">
+                <button  data-bs-toggle="modal" data-bs-target="#addNote"
+                    class="btn  btn-success float-end text-white mt-5">Add note<i class="fas fa-plus mx-1"></i>
+                </button>
+            </div>
+            <!--------------------------note body------->
+            <div *ngIf="!notFound" class="row ">
+                <div *ngFor="let note of received_Notes"  class="col-md-3">
+                    <div class="note rounded-3 p-2">
+                        <div class='col-md-12 '>
+                            <nav class="navbar float-end  navbar-expand-lg ">
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <div >
+                                        <i data-bs-toggle="dropdown" aria-expanded="false" id="navbarDropdown"
+                                            class="fas position-relative fa-ellipsis-v  p-2"></i>
+                                        <div class="dropdown-menu open-menu" aria-labelledby="navbarDropdown">
+                                            <div (click)="getID(note._id);setValue()" data-bs-toggle="modal" data-bs-target="#editeNote" class=" dropdown-item text-info">Edit <i class="far fa-edit float-end"></i></div>
+                                            <div (click)="getID(note._id)" data-bs-toggle="modal" data-bs-target="#deleteNote" class=" dropdown-item text-danger">Delete<i class="fas fa-trash-alt float-end"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class='text-center mt-3 pt-4  '>
+                            <h2>{{note.title}}</h2>
+                            <p>{{note.desc}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  *ngIf="notFound"  class="d-flex w-100 justify-content-center  mt-5  ">
+            <div class="text-center fw-bold  coloring w-50 rounded-3 mb-5 text-dark py-3"> No Notes Found</div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal add note -->
+<div class="modal fade" id="addNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form [formGroup]="addNote" (ngSubmit)='add_Note()' >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add your note</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input formControlName="title" placeholder="Title" class="form-control" type="text" value="">
+                </div>
+                <div class="modal-body">
+                    <textarea formControlName="desc" placeholder="type your note" rows="10" class=" form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">ADD</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!------------------------- model edite note -------------->
+<div class="modal fade" id="editeNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form [formGroup]="editeNote" (ngSubmit)="update()" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input formControlName="title" placeholder="Title" class="form-control" type="text" value="">
+                </div>
+                <div class="modal-body">
+                    <textarea formControlName="desc" placeholder="type your note" rows="10" class=" form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button  type="submit" class="btn btn-info text-white" data-bs-dismiss="modal">Update</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+    
+                </div>
+            </div>
+        </form>
+       
+    </div>
+</div>
+<!------------------ model delete note ----------->
+<div class="modal fade" id="deleteNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="exampleModalLabel">Delete your note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-danger">Do you really want to delete ?!</p>
+            </div>
+
+            <div class="modal-footer">
+                <button (click)="deleteNote()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-info text-white" data-bs-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>

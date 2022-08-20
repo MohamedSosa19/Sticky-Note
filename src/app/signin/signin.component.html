@@ -1,0 +1,32 @@
+<section id="myPlug" class="bg-dark">
+    <form [formGroup]="loginForm" class="form  w-50 m-auto" (ngSubmit)="loginForm.valid&&login(loginForm)">
+
+        <div class="mb-3">
+            <input formControlName='email' type="email" placeholder="Enter your Email" class="form-control">
+            <div *ngIf="loginForm.controls.email.errors &&loginForm.controls.email.touched"
+                class="alert-danger p-1 rounded-1">
+                <p *ngIf="loginForm.controls.email.errors.required ">email is required</p>
+                <p *ngIf="loginForm.controls.email.errors.email"> email is not valid </p>
+            </div>
+        </div>
+
+        <input formControlName='password' type="password" placeholder="Enter your password" class="form-control">
+        <div *ngIf="loginForm.controls.password.errors &&loginForm.controls.password.touched"
+            class="alert-danger p-1 rounded-1">
+            <p *ngIf="loginForm.controls.password.errors.required ">password is required</p>
+            <p *ngIf="loginForm.controls.password.errors.pattern"> password is not valid</p>
+        </div>
+        <button [disabled]="loginForm.invalid"
+            [ngStyle]="loginForm.invalid? {'background-color':'gray', 'border-color':'gray'}: {'background-color':'#17a2b8', 'border-color':'17a2b8'} "
+            type="submit" class="btn btn-info w-100 mt-3 text-white fw-bold">
+            <span *ngIf="!isClicked">login</span>
+            <span *ngIf="isClicked">waiting....</span>
+        </button>
+        <div *ngIf="inSuccess" class="mt-2 alert text-success alert-success text-center">
+            {{message}}
+        </div>
+        <div *ngIf="inFailure" class="mt-2 alert alert-danger text-center">
+            {{message}}
+        </div>
+    </form>
+</section>

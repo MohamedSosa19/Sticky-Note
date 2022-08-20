@@ -1,0 +1,63 @@
+<section id="myPlug" class="bg-dark">
+
+    <form [formGroup]="registerForm" class="form  w-50 m-auto" (ngSubmit)="registerForm.valid&&submitData()">
+
+        <div class="row">
+            <div class="col-md-6 my-3">
+                <input formControlName='first_name' type="text" placeholder="Enter First Name" class="form-control">
+                <div *ngIf="registerForm.controls.first_name.errors &&registerForm.controls.first_name.touched"
+                    class="alert-danger p-1 rounded-1">
+                    <p *ngIf="registerForm.controls.first_name.errors.required ">First name is required</p>
+                    <p *ngIf="registerForm.controls.first_name.errors.minlength "> min length is 2 char </p>
+                    <p *ngIf="registerForm.controls.first_name.errors.maxlength ">max length is 10 char </p>
+                </div>
+            </div>
+            <div class="col-md-6 my-3">
+                <input formControlName='last_name' type="text" placeholder="Enter Last Name" class="form-control">
+                <div *ngIf="registerForm.controls.last_name.errors &&registerForm.controls.last_name.touched"
+                    class="alert-danger p-1 rounded-1">
+                    <p *ngIf="registerForm.controls.last_name.errors.required ">last name is required</p>
+                    <p *ngIf="registerForm.controls.last_name.errors.minlength "> min length is 2 char </p>
+                    <p *ngIf="registerForm.controls.last_name.errors.maxlength ">max length is 10 char </p>
+                </div>
+            </div>
+        </div>
+
+        <input formControlName='email' type="email" placeholder="Enter your Email" class="form-control">
+        <div *ngIf="registerForm.controls.email.errors &&registerForm.controls.email.touched"
+            class="alert-danger p-1 rounded-1">
+            <p *ngIf="registerForm.controls.email.errors.required ">email is required</p>
+            <p *ngIf="registerForm.controls.email.errors.email"> email is not valid </p>
+        </div>
+
+        <div class="my-3">
+            <input formControlName='age' type="text" placeholder="Enter your Age" class=" form-control">
+            <div *ngIf="registerForm.controls.age.errors &&registerForm.controls.age.touched"
+                class="alert-danger p-1 rounded-1">
+                <p *ngIf="registerForm.controls.age.errors.required ">age is required</p>
+                <p *ngIf="registerForm.controls.age.errors.min "> min age is 10 </p>
+                <p *ngIf="registerForm.controls.age.errors.max ">max age is 100 </p>
+            </div>
+        </div>
+
+        <input formControlName='password' type="password" placeholder="Enter your password" class="form-control">
+        <div *ngIf="registerForm.controls.password.errors &&registerForm.controls.password.touched"
+            class="alert-danger p-1 rounded-1">
+            <p *ngIf="registerForm.controls.password.errors.required ">password is required</p>
+            <p *ngIf="registerForm.controls.password.errors.pattern"> password is not valid</p>
+        </div>
+        <button [disabled]="registerForm.invalid"
+            [ngStyle]="registerForm.invalid? {'background-color':'gray', 'border-color':'gray'}: {'background-color':'#17a2b8', 'border-color':'17a2b8'} "
+            type="submit" class="btn btn-info w-100 mt-3 text-white fw-bold">
+            <span *ngIf="!isClicked">SignUp</span>
+            <span *ngIf="isClicked">waiting....</span>
+        </button>
+        <div *ngIf="inSuccess" class="mt-2 alert alert-success text-success text-center">
+            {{message}}
+        </div>
+        <div *ngIf="inFailure" class="mt-2 alert alert-danger text-center">
+            {{message}}
+        </div>
+    </form>
+
+</section>

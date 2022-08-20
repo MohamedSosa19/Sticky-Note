@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "e9b02622-b711-4ead-8046-8649f239fa10"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Sticky-Note": {
+    "my-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Sticky-Note",
+            "outputPath": "dist/my-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -26,10 +29,15 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
+            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/jquery/dist/jquery.min.js",  
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/myfile/js/jquery.particleground.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -68,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Sticky-Note:build:production"
+              "browserTarget": "my-app:build:production"
             },
             "development": {
-              "browserTarget": "Sticky-Note:build:development"
+              "browserTarget": "my-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Sticky-Note:build"
+            "browserTarget": "my-app:build"
           }
         },
         "test": {
@@ -102,5 +110,5 @@
       }
     }
   },
-  "defaultProject": "Sticky-Note"
+  "defaultProject": "my-app"
 }
